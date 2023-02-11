@@ -7,6 +7,11 @@ rescue_from ActiveRecord::RecordNotFound, with: :render_not_found_response
         render json: books
     end
 
+    def show
+        book = Book.find_by(params[:id])
+        render json: book
+    end
+
     private
 
     def render_not_found_response

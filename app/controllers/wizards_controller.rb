@@ -6,10 +6,15 @@ class WizardsController < ApplicationController
     render json: wizard
   end
 
+  def show
+    wizard = Wizard.find_by(params[:id])
+    render json: wizard
+  end
+
   private
 
   def render_not_found_response
     render json: { error: "Wizard not found. Hmmm, I wonder if they apparated somewhere!"}, status: :not_found
   end
-  
+
 end
