@@ -12,8 +12,10 @@ rescue_from ActiveRecord::RecordNotFound, with: :render_not_found_response
     end
 
     def create
-        book = Book.create(book_params)
-        render json: book, status: :created
+        book = Book.create!(book_params)
+        render json: book, status: :accepted
+    rescue ActiveRecord::RecordInvalid => invalid 
+        render json:{error: invalid.record.errors}, status: :unprocessable_entity
     end
 
     def update

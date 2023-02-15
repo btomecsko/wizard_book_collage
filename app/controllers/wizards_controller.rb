@@ -16,7 +16,7 @@ class WizardsController < ApplicationController
   #POST /wizards
   def create
     wizard = Wizard.create(wizard_params)
-    render json: wizard, status: :created
+    render json: wizard, status: :accepted
   end
 
   #PATCH /wizards/:id
