@@ -7,13 +7,33 @@ class WizardsController < ApplicationController
   end
 
   def show
-    wizard = Wizard.find_by(params[:id])
+    wizard = Wizard.find_by(id:params[:id])
     render json: wizard
   end
 
   def create
     wizard = Wizard.create(wizard_params)
     render json: wizard, status: :created
+  end
+
+  def update
+    wizard = Wizard.find_by(id:params[:id])
+    if wizard
+      wizard.update(wizard_params)
+      render json: wizard, status: :accepted
+    else
+      render json: {error: "The wizard cannot seem to be located!"}, status: :not_found
+    end
+  end
+
+  def destroy
+    wizard = Wizard.find_by(id:params[:id])
+    if wizard
+      wizard.destroy
+      head :no_content
+    else
+      render json: {error: "The wizard seems to have apparated out of the facility!"}, status: :not_found
+    end
   end
 
   private
