@@ -1,6 +1,5 @@
 class BooksController < ApplicationController
 rescue_from ActiveRecord::RecordNotFound, with: :render_not_found_response
-wrap_parameters format: []
 
     def index
         books = Book.all
@@ -8,7 +7,7 @@ wrap_parameters format: []
     end
 
     def show
-        book = Book.find_by(params[:id])
+        book = find_book
         render json: book
     end
 
@@ -17,7 +16,23 @@ wrap_parameters format: []
         render json: book, status: :created
     end
 
+    def update
+        book = find_book
+        book.update(book_params)
+        render json: book, status: :accepted
+    end
+
+    def destroy
+        book = find_book
+        book.destroy
+        head :no_content
+    end
+
     private
+
+    def find_book
+        Book.find(params[:id])
+    end
 
     def book_params
         params.permit(:name, :description)

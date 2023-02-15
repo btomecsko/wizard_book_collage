@@ -1,42 +1,44 @@
 class WizardsController < ApplicationController
+  #Rescue to handle error handling when record does not exist
   rescue_from ActiveRecord::RecordNotFound, with: :render_not_found_response
-  wrap_parameters format: []
 
+  #GET /wizards
   def index
     render json: Wizard.all
   end
 
+  #GET /wizards/:id
   def show
-    wizard = Wizard.find_by(id:params[:id])
+    wizard = find_wizard
     render json: wizard
   end
 
+  #POST /wizards
   def create
     wizard = Wizard.create(wizard_params)
     render json: wizard, status: :created
   end
 
+  #PATCH /wizards/:id
   def update
-    wizard = Wizard.find_by(id:params[:id])
-    if wizard
+    wizard = find_wizard
       wizard.update(wizard_params)
       render json: wizard, status: :accepted
-    else
-      render json: {error: "The wizard cannot seem to be located!"}, status: :not_found
-    end
   end
 
+  #DELETE /wizards/:id
   def destroy
-    wizard = Wizard.find_by(id:params[:id])
-    if wizard
+    wizard = find_wizard
       wizard.destroy
       head :no_content
-    else
-      render json: {error: "The wizard seems to have apparated out of the facility!"}, status: :not_found
-    end
   end
 
   private
+
+  #Helper method to find a wizard from their id in the params hash
+  def find_wizard
+    Wizard.find(params[:id])
+  end
 
   def wizard_params
     params.permit(:first, :last, :house)
