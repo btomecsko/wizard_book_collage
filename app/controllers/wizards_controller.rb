@@ -13,10 +13,12 @@ class WizardsController < ApplicationController
     render json: wizard
   end
 
-  #POST /wizards
+  #POST /wizards with invalid error rescue validator
   def create
-    wizard = Wizard.create(wizard_params)
+    wizard = Wizard.create!(wizard_params)
     render json: wizard, status: :accepted
+  rescue ActiveRecord::RecordInvalid => invalid 
+    render json:{error: invalid.record.errors}, status: :unprocessable_entity
   end
 
   #PATCH /wizards/:id
