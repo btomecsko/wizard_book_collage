@@ -1,3 +1,5 @@
 class PhotoSerializer < ActiveModel::Serializer
-  attributes :id, :name, :image, :date, :wizard_id, :book_id
+  attributes :name, :image, :date
+  belongs_to :wizard
+  belongs_to :book
 end

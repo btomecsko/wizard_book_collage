@@ -5,7 +5,7 @@ class PhotosController < ApplicationController
     #GET /photos
     def index
         photos = Photo.all
-        render json: photos, include: :Photo
+        render json: photos, include: :wizard
     end
 
     #GET /photos/:id

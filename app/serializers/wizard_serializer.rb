@@ -1,3 +1,5 @@
 class WizardSerializer < ActiveModel::Serializer
-  attributes :id, :first, :last, :house, :username, :password_digest
+  attributes :first, :last, :house, :username, :password_digest
+  has_many :photos
+  has_many :books
 end

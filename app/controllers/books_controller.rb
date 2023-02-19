@@ -8,7 +8,7 @@ rescue_from ActiveRecord::RecordNotFound, with: :render_not_found_response
 
     def show
         book = find_book
-        render json: book
+        render json: book, include: :photos
     end
 
     def create
