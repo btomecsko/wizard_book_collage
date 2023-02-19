@@ -10,7 +10,7 @@ class WizardsController < ApplicationController
   #GET /wizards/:id
   def show
     wizard = find_wizard
-    render json: wizard
+    render json: wizard, include: :photos
   end
 
   #POST /wizards with invalid error rescue validator
