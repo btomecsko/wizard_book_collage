@@ -1,11 +1,8 @@
 class PhotosController < ApplicationController
-    #Rescue to handle error handling when record does not exist
-  rescue_from ActiveRecord::RecordNotFound, with: :render_not_found_response
 
     #GET /photos
     def index
-        photos = Photo.all
-        render json: photos, include: :wizard
+        render json: Photo.all
     end
 
     #GET /photos/:id
@@ -18,8 +15,6 @@ class PhotosController < ApplicationController
     def create
         photo = Photo.create!(photo_params)
         render json: Photo, status: :accepted
-    rescue ActiveRecord::RecordInvalid => invalid 
-        render json:{error: invalid.record.errors}, status: :unprocessable_entity
     end
 
     #PATCH /photos/:id
@@ -45,10 +40,6 @@ class PhotosController < ApplicationController
 
     def photo_params
         params.permit(:name, :image, :date, :wizard_id, :book_id)
-    end
-
-    def render_not_found_response
-        render json: { error: "Photo not found. Hmmm, I wonder if they apparated somewhere!"}, status: :not_found
     end
 
 end

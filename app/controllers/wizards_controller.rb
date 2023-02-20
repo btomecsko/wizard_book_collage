@@ -1,53 +1,22 @@
 class WizardsController < ApplicationController
-  #Rescue to handle error handling when record does not exist
-  rescue_from ActiveRecord::RecordNotFound, with: :render_not_found_response
+  skip_before_action :authorize, only: :create
 
-  #GET /wizards
-  def index
-    render json: Wizard.all
-  end
-
-  #GET /wizards/:id
+  #GET /wizards/:id based on the current logged in wizard
   def show
-    wizard = find_wizard
-    render json: wizard, include: :photos
+    render json: @current_wizard
   end
 
-  #POST /wizards with invalid error rescue validator
+  #POST /wizards with authorization
   def create
     wizard = Wizard.create!(wizard_params)
-    render json: wizard, status: :accepted
-  rescue ActiveRecord::RecordInvalid => invalid 
-    render json:{error: invalid.record.errors}, status: :unprocessable_entity
-  end
-
-  #PATCH /wizards/:id
-  def update
-    wizard = find_wizard
-      wizard.update(wizard_params)
-      render json: wizard, status: :accepted
-  end
-
-  #DELETE /wizards/:id
-  def destroy
-    wizard = find_wizard
-      wizard.destroy
-      head :no_content
+    session[:wizard_id] = wizard.id
+    render json: wizard, status: :created
   end
 
   private
 
-  #Helper method to find a wizard from their id in the params hash
-  def find_wizard
-    Wizard.find(params[:id])
-  end
-
   def wizard_params
-    params.permit(:first, :last, :house)
-  end
-
-  def render_not_found_response
-    render json: { error: "Wizard not found. Hmmm, I wonder if they apparated somewhere!"}, status: :not_found
+    params.permit(:first, :last, :house, :password, :password_confirmation)
   end
 
 end
