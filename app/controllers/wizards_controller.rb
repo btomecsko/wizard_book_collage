@@ -12,6 +12,7 @@ class WizardsController < ApplicationController
     session[:wizard_id] = wizard.id
     render json: wizard, status: :created
   end
+  
 
   private
 
