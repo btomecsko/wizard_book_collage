@@ -13,14 +13,14 @@ class PhotosController < ApplicationController
 
     #POST /photos with invalid error rescue validator
     def create
-        photo = Photo.create!(photo_params)
-        render json: Photo, status: :accepted
+        photo = @current_wizard.photos.create!(photo_params)
+        render json: photo, status: :created
     end
 
     #PATCH /photos/:id
     def update
         photo = find_photo
-        Photo.update(Photo_params)
+        Photo.update(photo_params)
         render json: photo, status: :accepted
     end
 

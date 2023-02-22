@@ -1,5 +1,4 @@
 class BooksController < ApplicationController
-rescue_from ActiveRecord::RecordNotFound, with: :render_not_found_response
 
     def index
         books = Book.all
@@ -14,8 +13,6 @@ rescue_from ActiveRecord::RecordNotFound, with: :render_not_found_response
     def create
         book = Book.create!(book_params)
         render json: book, status: :accepted
-    rescue ActiveRecord::RecordInvalid => invalid 
-        render json:{error: invalid.record.errors}, status: :unprocessable_entity
     end
 
     def update
@@ -38,10 +35,6 @@ rescue_from ActiveRecord::RecordNotFound, with: :render_not_found_response
 
     def book_params
         params.permit(:name, :description)
-    end
-
-    def render_not_found_response
-        render json: {error: "Look at that, it appears we don't have that book!"}, status: :not_found 
     end
 
 end

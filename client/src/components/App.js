@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Routes, Route } from "react-router-dom";
 
 import BookContainer from "../pages/BookContainer";
+import Login from "../pages/Login"
 import NavBar from "./NavBar";
 
 
@@ -28,9 +29,7 @@ const App = () => {
           {/* <Route path="/new">
             <NewRecipe user={user} />
           </Route> */}
-          <Route path="/">
-            <BookContainer />
-          </Route>
+          <Route path="/" element={<BookContainer/>}/>
         </Routes>
       </main>
     </>

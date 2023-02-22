@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   
   resources :photos, only: [:index, :show, :create, :update, :destroy] 
-  resources :books, only: [:index, :show, :create, :update, :destroy]
+  resources :books, only: [:index, :show, :create]
   #resources :wizards, only: [:index, :update]
   
   post "/signup", to: "wizards#create"
