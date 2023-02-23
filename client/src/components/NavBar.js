@@ -14,15 +14,12 @@ const NavBar = ({ wizard, setWizard }) => {
 
   return (
     <Wrapper>
-      <Logo>
-        <Link to="/">Library</Link>
-      </Logo>
+      <Logo> Welcome {wizard.first}!</Logo>
       <Nav>
-        <Button as={Link} to="/new">
-          Conjure a Book
-        </Button>
+        <Button as={Link} to="/">Library</Button>
+        <Button as={Link} to="/new"> Conjure a Book</Button>
         <Button variant="outline" onClick={handleLogoutClick}>
-          Logout
+        Collorportus
         </Button>
       </Nav>
     </Wrapper>
@@ -40,7 +37,7 @@ const Logo = styled.h1`
   font-family: "Permanent Marker";
   font-size: 3rem;
   color: #d3a625;
-  margin: 0;
+  margin-top: 10px;
   line-height: 1;
 
   a {

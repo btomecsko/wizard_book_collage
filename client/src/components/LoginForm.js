@@ -54,7 +54,7 @@ const LoginForm = ({ onLogin }) => {
       </FormField>
       <FormField>
         <Button variant="fill" color="primary" type="submit">
-          {isLoading ? "Loading..." : "Login"}
+          {isLoading ? "Loading..." : "Alohomora"}
         </Button>
       </FormField>
       <FormField>

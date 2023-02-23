@@ -44,10 +44,6 @@ const OutlineButton = styled(ButtonBase)`
   background-color: black;
   color: var(--accent);
   border: 2px solid var(--main);
-
-  &:hover {
-    background: hsl(235deg 85% 97%);
-  }
 `;
 
 export default Button;

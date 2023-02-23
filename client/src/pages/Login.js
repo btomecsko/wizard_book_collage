@@ -9,7 +9,7 @@ const Login = ({ onLogin }) => {
 
   return (
     <Wrapper>
-      <Logo>Library</Logo>
+      <Logo>Platform 9 <sup>3</sup>&frasl;<sub>4</sub></Logo>
       {showLogin ? (
         <>
           <LoginForm onLogin={onLogin} /> 
@@ -40,7 +40,8 @@ const Login = ({ onLogin }) => {
 const Logo = styled.h1`
   font-family: "Permanent Marker";
   font-size: 3rem;
-  color: #d3a625;
+  color: #740001;
+  border-color: black;
   margin: 8px 0 16px;
   text-align: center;
 `;
