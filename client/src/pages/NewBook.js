@@ -31,7 +31,7 @@ const NewBook = () => {
     }).then((r) => {
       setIsLoading(false);
       if (r.ok) {
-        navigate.push("/");
+        navigate("/");
       } else {
         r.json().then((err) => setErrors(err.errors));
       }

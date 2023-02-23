@@ -17,7 +17,7 @@ class WizardsController < ApplicationController
   private
 
   def wizard_params
-    params.permit(:first, :last, :house, :password, :password_confirmation)
+    params.permit(:first, :last, :house, :username, :password, :password_confirmation)
   end
 
 end
