@@ -21,9 +21,10 @@ const BookContainer = () => {
             <Logo>Library</Logo>
             <>
             <CardContainer>
-                {books.map(book => (
+                {books.map((book, index) => (
                     <BookCard
-                    key = {book.id}
+                    key = {index}
+                    bookNum = {book.id}
                     name={book.name}
                     description={book.description}
                     />
@@ -35,7 +36,7 @@ const BookContainer = () => {
 }
 
 const Wrapper = styled.section`
-  max-width: 800px;
+  max-width: 1000px;
   margin: 40px auto;
 `;
 
@@ -56,7 +57,7 @@ const CardContainer = styled.div`
   align-items: center;
   justify-content: center;
   background: transparent;
-  overflow: hidden;
+  overflow: auto;
 `;
 
 export default BookContainer;

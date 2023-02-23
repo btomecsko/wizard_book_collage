@@ -15,17 +15,17 @@ class BooksController < ApplicationController
         render json: book, status: :accepted
     end
 
-    def update
-        book = find_book
-        book.update(book_params)
-        render json: book, status: :accepted
-    end
+    # def update
+    #     book = find_book
+    #     book.update(book_params)
+    #     render json: book, status: :accepted
+    # end
 
-    def destroy
-        book = find_book
-        book.destroy
-        head :no_content
-    end
+    # def destroy
+    #     book = find_book
+    #     book.destroy
+    #     head :no_content
+    # end
 
     private
 

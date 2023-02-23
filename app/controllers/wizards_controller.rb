@@ -3,7 +3,7 @@ class WizardsController < ApplicationController
 
   #GET /wizards/:id based on the current logged in wizard
   def show
-    render json: @current_wizard
+    render json: @current_wizard, include: :photos
   end
 
   #POST /wizards with authorization

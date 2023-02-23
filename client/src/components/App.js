@@ -4,6 +4,7 @@ import { Routes, Route } from "react-router-dom";
 import BookContainer from "../pages/BookContainer";
 import Login from "../pages/Login"
 import NewBook from "../pages/NewBook";
+import PhotoCarousel from "./PhotoCarousel";
 import NavBar from "./NavBar";
 
 
@@ -29,6 +30,9 @@ const App = () => {
         <Routes>
           <Route path="/new" element={<NewBook/>}/>
           <Route path="/" element={<BookContainer/>}/>
+          <Route path="/photos" element={<PhotoCarousel
+          wizard={wizard}
+          />}/>
         </Routes>
       </main>
     </>
