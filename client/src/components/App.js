@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { Routes, Route } from "react-router-dom";
 
+//import 'bootstrap/dist/css/bootstrap.min.css';
+
 import BookContainer from "../pages/BookContainer";
 import Login from "../pages/Login"
 import NewBook from "../pages/NewBook";
 import PhotoCarousel from "./PhotoCarousel";
 import NavBar from "./NavBar";
+import AddPhoto from "./AddPhoto";
 
 
 const App = () => {
@@ -31,6 +34,9 @@ const App = () => {
           <Route path="/new" element={<NewBook/>}/>
           <Route path="/" element={<BookContainer/>}/>
           <Route path="/photos" element={<PhotoCarousel
+          wizard={wizard}
+          />}/>
+          <Route path="/addphoto" element={<AddPhoto
           wizard={wizard}
           />}/>
         </Routes>

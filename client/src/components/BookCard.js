@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import {createContext} from "react";
 
 import {
     CardWrapper,
@@ -13,7 +12,6 @@ import {
   } from "../styles/Card";
   import styled from "styled-components";
 
-  const BookContext = createContext();
 
 const BookCard = ({bookNum, name, description}) => {
     return (
@@ -29,9 +27,7 @@ const BookCard = ({bookNum, name, description}) => {
         </CardBodyWrapper>
         <CardOpenWrapper>
           <CardOpen>
-            <BookContext.Provider value={bookNum}>
-            <LinkText as={Link} to="/photos">Open</LinkText>
-            </BookContext.Provider>
+            <LinkText as={Link} to="/photos" state={bookNum}>Open</LinkText>
           </CardOpen>
         </CardOpenWrapper>
       </CardWrapper>
