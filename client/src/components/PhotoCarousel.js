@@ -27,6 +27,8 @@ const PhotoCarousel = () => {
         <CardContainer>
             {book.photos.map((photo, index) => (
                 <PhotoList
+                setBook={setBook}
+                book={book}
                 key={index}
                 id={photo.id}
                 name={photo.name}
