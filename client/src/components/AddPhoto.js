@@ -8,7 +8,7 @@ import Input from "../styles/Input";
 import FormField from "../styles/FormField";
 import Label from "../styles/Label";
 
-const AddPhoto = ({wizard}) => {
+const AddPhoto = () => {
   const [name, setName] = useState("Moon Calf");
   const [image, setImage] = useState("");
   
@@ -37,7 +37,7 @@ const AddPhoto = ({wizard}) => {
     }).then((r) => {
       setIsLoading(false);
       if (r.ok) {
-        navigate("/");
+        navigate(-1);
       } else {
         r.json().then((err) => setErrors(err.errors));
       }

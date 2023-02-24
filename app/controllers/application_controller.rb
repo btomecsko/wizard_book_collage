@@ -1,8 +1,10 @@
 class ApplicationController < ActionController::API
   include ActionController::Cookies
 
+  #guard clause method useing a before_action filter to only allow wizards that are logged in based on the authorize private method
   before_action :authorize
 
+  #error handler
   rescue_from ActiveRecord::RecordInvalid, with: :render_unprocessable_entity_response
 
   private

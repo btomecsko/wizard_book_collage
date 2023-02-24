@@ -26,6 +26,8 @@ const App = () => {
 
   if (!wizard) return <Login onLogin={setWizard} />;
 
+  
+
   return (
     <>
       <NavBar wizard={wizard} setWizard={setWizard} />

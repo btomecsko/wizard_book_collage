@@ -25,15 +25,16 @@ const PhotoCarousel = () => {
         <Logo>{book.name}</Logo>
         <Button as={Link} to="/addphoto" state={books}>Add New Photo</Button>
         <CardContainer>
-            {book.photos.map((photo, index) => (
+            {book.photos.map((photo, index) => {
+                return(
                 <PhotoList
                 key={index}
                 id={photo.id}
                 name={photo.name}
                 image={photo.image}
                 />
-            ))
-        }
+            )
+                })}
         </CardContainer>
         </Wrapper>
     )

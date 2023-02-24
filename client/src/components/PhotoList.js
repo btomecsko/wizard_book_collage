@@ -1,4 +1,5 @@
 import {useState} from "react";
+//import { useNavigate } from "react-router-dom";
 
 import {
     PhotoWrapper,
@@ -12,10 +13,14 @@ import {
 import styled from "styled-components";
 import Button from "../styles/Button";
 
-const PhotoList = ({ id, name, image }) => {
+const PhotoList = ({  id, name, image }) => {
     const [visible, setVisible] = useState(false);
-    const [newName, setNewName] = useState("")
     const [newImage, setNewImage] = useState("")
+    //const navigate = useNavigate();
+
+    const refreshPage = () => {
+        window.location.reload(false);
+    }
 
     const handleDeletePhoto = () => {
         fetch(`/photos/${id}`, {
@@ -23,34 +28,25 @@ const PhotoList = ({ id, name, image }) => {
         })
             .then(res => {
                 if (res.ok) {
-                    console.log(res)
-                } else {
-                    res.json().then(console.log)
-                }
+                    refreshPage()
+                } 
             })
     }
-
-    // const handlePhotoUpdate = (updatedPhoto) => {
-    //     const updatedPhotos = book.photos.map(photo => 
-    //         photo.id === updatedPhoto.id ? updatedPhoto : photo
-    //     );
-    //     setBook(updatedPhotos)
-    // }
-     
+  
   const updateName = () => {
-    //e.preventDefault();
     fetch(`/photos/${id}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        name: newName,
         image: newImage,
       })
     })
         .then(res => res.json())
-        .then(res => console.log(res))
+        .then(res => {
+                refreshPage()
+        })
   }
 
     return (
@@ -69,7 +65,6 @@ const PhotoList = ({ id, name, image }) => {
                     </CardLink>
                     {visible &&
                         <CardTextBody>
-                            <input type="text" placeholder="New Name" value={newName} onChange={(e) => setNewName(e.target.value)} /> <br />
                             <input type="text" placeholder="New Image URL" value={newImage} onChange={(e) => setNewImage(e.target.value)} /> <br />
                             <Button onClick={updateName}>
                                 Confirm
