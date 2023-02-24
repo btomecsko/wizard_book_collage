@@ -21,15 +21,15 @@ class PhotosController < ApplicationController
     #PATCH /photos/:id
     def update
         photo = find_photo
-        Photo.update(photo_params)
+        photo.update(photo_params)
         render json: photo, status: :accepted
     end
 
     #DELETE /photos/:id
     def destroy
         photo = find_photo
-        Photo.destroy
-         head :no_content
+        photo.destroy
+        head :no_content
     end
 
     private

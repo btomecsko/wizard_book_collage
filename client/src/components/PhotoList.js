@@ -12,7 +12,7 @@ import {
 import styled from "styled-components";
 import Button from "../styles/Button";
 
-const PhotoList = ({ setBook, book, id, name, image }) => {
+const PhotoList = ({ id, name, image }) => {
     const [visible, setVisible] = useState(false);
     const [newName, setNewName] = useState("")
     const [newImage, setNewImage] = useState("")
@@ -38,25 +38,20 @@ const PhotoList = ({ setBook, book, id, name, image }) => {
     // }
      
   const updateName = () => {
-    let name = { newName }
-    let image = { newImage }
-    console.log("name", newName)
-    console.log("image", newImage)
-    fetch(`photos/${id}`, {
+    //e.preventDefault();
+    fetch(`/photos/${id}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        name,
-        image,
+        name: newName,
+        image: newImage,
       })
     })
         .then(res => res.json())
-       // .then(updatedPhoto => handlePhotoUpdate(updatedPhoto))
+        .then(res => console.log(res))
   }
-
-    console.log(id)
 
     return (
         <Separator>
