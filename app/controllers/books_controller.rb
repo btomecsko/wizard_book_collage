@@ -1,31 +1,20 @@
 class BooksController < ApplicationController
 
+    #GET request for all books
     def index
         books = Book.all
         render json: books
     end
-
+    #GET request for a book based on id params
     def show
         book = find_book
         render json: book, include: :photos
     end
-
+    #POST request to create new book
     def create
         book = Book.create!(book_params)
         render json: book, status: :accepted
     end
-
-    # def update
-    #     book = find_book
-    #     book.update(book_params)
-    #     render json: book, status: :accepted
-    # end
-
-    # def destroy
-    #     book = find_book
-    #     book.destroy
-    #     head :no_content
-    # end
 
     private
 

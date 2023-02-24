@@ -1,5 +1,4 @@
 class PhotosController < ApplicationController
-    skip_before_action :authorize, only: :index
 
     #GET /photos
     def index
@@ -12,7 +11,7 @@ class PhotosController < ApplicationController
         render json: photo
     end
 
-    #POST /photos with invalid error rescue validator
+    #POST /photos based on the logged in wizard
     def create
         photo = @current_wizard.photos.create!(photo_params)
         render json: photo, status: :created

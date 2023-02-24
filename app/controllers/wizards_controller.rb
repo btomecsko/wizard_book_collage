@@ -1,4 +1,5 @@
 class WizardsController < ApplicationController
+  #filter to skip the authorization clause to allow a wizard to be created
   skip_before_action :authorize, only: :create
 
   #GET /wizards/:id based on the current logged in wizard
@@ -6,7 +7,7 @@ class WizardsController < ApplicationController
     render json: @current_wizard, include: :photos
   end
 
-  #POST /wizards with authorization
+  #POST /wizards to create new wizard
   def create
     wizard = Wizard.create!(wizard_params)
     session[:wizard_id] = wizard.id
