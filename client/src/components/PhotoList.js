@@ -1,3 +1,5 @@
+import {useState} from "react";
+
 import {
     PhotoWrapper,
     CardTextWrapper,
@@ -5,25 +7,27 @@ import {
     CardTextTitle,
     CardLinkWrapper,
     CardLink,
-    LinkText
+    CardTextBody
 } from "../styles/Card";
 import styled from "styled-components";
 import Button from "../styles/Button";
 
 const PhotoList = ({ id, name, image }) => {
+    const [visible, setVisible] = useState(false);
+    const [newName, setNewName] = useState("")
 
     const handleDeletePhoto = () => {
         fetch(`/photos/${id}`, {
             method: "DELETE"
         })
-        .then(res => {
-            if (res.ok){
-            console.log(res)
-            }else {
-                res.json().then(console.log)
-            }
+            .then(res => {
+                if (res.ok) {
+                    console.log(res)
+                } else {
+                    res.json().then(console.log)
+                }
             })
-        }
+    }
 
     console.log(id)
 
@@ -36,11 +40,19 @@ const PhotoList = ({ id, name, image }) => {
                 </CardTextWrapper>
                 <CardLinkWrapper>
                     <CardLink>
-                        <LinkText>Update</LinkText>
+                        <Button onClick={() => setVisible(!visible)}>{visible ? 'Cancel' : 'Update'}</Button>
                     </CardLink>
                     <CardLink>
                         <Button onClick={handleDeletePhoto}>Delete</Button>
                     </CardLink>
+                    {visible &&
+                        <CardTextBody>
+                            <input type="text" value={newName} onChange={(e) => setNewName(e.target.value)} /> <br />
+                            <Button>
+                                Confirm
+                            </Button>
+                        </CardTextBody>
+                    }
                 </CardLinkWrapper>
             </PhotoWrapper>
         </Separator>
