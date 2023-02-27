@@ -21,14 +21,14 @@ const BookContainer = () => {
             <Logo>Library</Logo>
             <>
             <CardContainer>
-                {books.map((book, index) => (
+                {books.map(book => {
+                    return(
                     <BookCard
-                    key = {index}
-                    bookNum = {book.id}
-                    name={book.name}
-                    description={book.description}
+                    key = {book.id}
+                    book={book}
                     />
-                ))}
+                    )
+                    })}
             </CardContainer>
             </>
         </Wrapper>

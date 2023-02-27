@@ -9,18 +9,19 @@ import FormField from "../styles/FormField";
 import Label from "../styles/Label";
 
 const AddPhoto = () => {
-  const [name, setName] = useState("Moon Calf");
+  const [name, setName] = useState("");
   const [image, setImage] = useState("");
   
   const [errors, setErrors] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
+  //location hook to receive the book id from the state from the book card component
   const location = useLocation()
   const bookId = location.state
 
 
-
+  //POST request to send new book data/hash to database through the backend
   function handleSubmit(e) {
     e.preventDefault();
     setIsLoading(true);

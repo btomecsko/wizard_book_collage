@@ -6,7 +6,7 @@ import { Routes, Route } from "react-router-dom";
 import BookContainer from "../pages/BookContainer";
 import Login from "../pages/Login"
 import NewBook from "../pages/NewBook";
-import PhotoCarousel from "./PhotoCarousel";
+import PhotoContainer from "./PhotoContainer";
 import NavBar from "./NavBar";
 import AddPhoto from "./AddPhoto";
 
@@ -35,12 +35,8 @@ const App = () => {
         <Routes>
           <Route path="/new" element={<NewBook/>}/>
           <Route path="/" element={<BookContainer/>}/>
-          <Route path="/photos" element={<PhotoCarousel
-          wizard={wizard}
-          />}/>
-          <Route path="/addphoto" element={<AddPhoto
-          wizard={wizard}
-          />}/>
+          <Route path="/photos" element={<PhotoContainer/>}/>
+          <Route path="/addphoto" element={<AddPhoto/>}/>
         </Routes>
       </main>
     </>

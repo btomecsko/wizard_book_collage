@@ -6,19 +6,38 @@ import styled from "styled-components";
 import Button from "../styles/Button";
 import PhotoList from "./PhotoList";
 
-const PhotoCarousel = () => {
+const PhotoContainer = () => {
     const [book, setBook] = useState({photos: []})
     const location = useLocation()
     const books = location.state
 
     useEffect (() => {
-        const loadPhotos = async () => {
-            const res = await fetch(`/books/${books}`)
-            const data = await res.json()
-            setBook(data)
-        }
-        loadPhotos()
+      fetch(`/books/${books}`)
+      .then(res => res.json())
+      .then(book => setBook(book));
     }, [books])
+
+
+    const onDeletePhoto = (id) => {
+      console.log(id)
+      setBook(prevPhoto => {
+        const filteredPhotos = prevPhoto.photos.filter(photo => photo.id !== id)
+        return filteredPhotos
+      })
+    }
+
+    const editPhoto = (updatedPhoto) => {
+      setBook(prevPhoto => {
+        const newPhotoArray = prevPhoto.photos.map(photo => {
+          if(photo.id === updatedPhoto.id){
+            return updatedPhoto
+          }else{
+            return photo
+          }
+        })
+        return newPhotoArray
+      })
+    }
 
     return(
         <Wrapper>
@@ -28,6 +47,9 @@ const PhotoCarousel = () => {
             {book.photos.map((photo, index) => {
                 return(
                 <PhotoList
+                photo ={photo}
+                onDeletePhoto = {onDeletePhoto}
+                editPhoto={editPhoto}
                 key={index}
                 id={photo.id}
                 name={photo.name}
@@ -64,27 +86,5 @@ const Wrapper = styled.section`
   margin: 40px auto;
 `;
 
-// const ImageBox = styled.div`
-//   position: relative;
-//   background-color: #343434;
-//   width: 100%;
-//   height: 85%;
-//   img {
-//     position: absolute;
-//     margin: auto;
-//     top: 0;
-//     right: 0;
-//     bottom: 0;
-//     left: 0;
-//     max-width: 100%;
-//     max-height: 100%;
-//   }
-// `;
 
-// const SlideWrapper = styled.div`
-//   position: relative;
-//   width: 100vw;
-//   height: 100vh;
-// `;
-
-export default PhotoCarousel;
+export default PhotoContainer;

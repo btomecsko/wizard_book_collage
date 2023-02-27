@@ -13,25 +13,18 @@ import {
 import styled from "styled-components";
 import Button from "../styles/Button";
 
-const PhotoList = ({  id, name, image }) => {
+const PhotoList = ({  editPhoto, onDeletePhoto, id, name, image }) => {
     const [visible, setVisible] = useState(false);
-    const [newImage, setNewImage] = useState("")
-    //const navigate = useNavigate();
+    const [newImage, setNewImage] = useState("");    
 
-    const refreshPage = () => {
-        window.location.reload(false);
-    }
+    console.log(id)
 
     const handleDeletePhoto = () => {
         fetch(`/photos/${id}`, {
             method: "DELETE"
         })
-            .then(res => {
-                if (res.ok) {
-                    refreshPage()
-                } 
-            })
-    }
+        .then(() => onDeletePhoto(id))
+    };
   
   const updateName = () => {
     fetch(`/photos/${id}`, {
@@ -43,11 +36,9 @@ const PhotoList = ({  id, name, image }) => {
         image: newImage,
       })
     })
-        .then(res => res.json())
-        .then(res => {
-                refreshPage()
-        })
-  }
+      .then(res => res.json())
+      .then(data => editPhoto(data))
+  };
 
     return (
         <Separator>

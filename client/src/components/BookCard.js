@@ -13,7 +13,9 @@ import {
   import styled from "styled-components";
 
 
-const BookCard = ({bookNum, name, description}) => {
+const BookCard = ({book}) => {
+  const {id, name, description} = book;
+  
     return (
         <Separator>
         <CardWrapper>
@@ -27,7 +29,7 @@ const BookCard = ({bookNum, name, description}) => {
         </CardBodyWrapper>
         <CardOpenWrapper>
           <CardOpen>
-            <LinkText as={Link} to="/photos" state={bookNum}>Open</LinkText>
+            <LinkText as={Link} to="/photos" state={id}>Open</LinkText>
           </CardOpen>
         </CardOpenWrapper>
       </CardWrapper>
