@@ -13,17 +13,21 @@ import {
 import styled from "styled-components";
 import Button from "../styles/Button";
 
-const PhotoList = ({  editPhoto, onDeletePhoto, id, name, image }) => {
+const PhotoList = ({  editPhoto, onDeletePhoto, photo}) => {
     const [visible, setVisible] = useState(false);
     const [newImage, setNewImage] = useState("");    
 
-    console.log(id)
+    const {id, name, image} = photo
+    //const navigate = useNavigate();
+
+    console.log(image)
 
     const handleDeletePhoto = () => {
         fetch(`/photos/${id}`, {
             method: "DELETE"
         })
         .then(() => onDeletePhoto(id))
+        //navigate(0);
     };
   
   const updateName = () => {
@@ -38,6 +42,7 @@ const PhotoList = ({  editPhoto, onDeletePhoto, id, name, image }) => {
     })
       .then(res => res.json())
       .then(data => editPhoto(data))
+       //navigate(0);
   };
 
     return (
@@ -56,7 +61,7 @@ const PhotoList = ({  editPhoto, onDeletePhoto, id, name, image }) => {
                     </CardLink>
                     {visible &&
                         <CardTextBody>
-                            <input type="text" placeholder="New Image URL" value={newImage} onChange={(e) => setNewImage(e.target.value)} /> <br />
+                            <input type="text" placeholder="New Image URL" name="image" value={newImage} onChange={(e) => setNewImage(e.target.value)} /> <br />
                             <Button onClick={updateName}>
                                 Confirm
                             </Button>

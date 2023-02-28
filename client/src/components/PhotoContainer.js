@@ -1,59 +1,57 @@
 import React, { useEffect, useState } from "react";
-import { useLocation } from 'react-router-dom';
+//import { useLocation } from 'react-router-dom';
 import { Link } from "react-router-dom";
 
 import styled from "styled-components";
 import Button from "../styles/Button";
 import PhotoList from "./PhotoList";
 
-const PhotoContainer = () => {
+const PhotoContainer = ({bookID}) => {
     const [book, setBook] = useState({photos: []})
-    const location = useLocation()
-    const books = location.state
-
+    
+    
     useEffect (() => {
-      fetch(`/books/${books}`)
+      fetch(`/books/${bookID}`)
       .then(res => res.json())
       .then(book => setBook(book));
-    }, [books])
+    }, [bookID])
 
 
     const onDeletePhoto = (id) => {
       console.log(id)
-      setBook(prevPhoto => {
-        const filteredPhotos = prevPhoto.photos.filter(photo => photo.id !== id)
-        return filteredPhotos
+      setBook(book => {
+        const filteredPhotos = book.photos.filter(photo => photo.id !== id)
+        book.photos = filteredPhotos;
+        return book
       })
     }
 
     const editPhoto = (updatedPhoto) => {
-      setBook(prevPhoto => {
-        const newPhotoArray = prevPhoto.photos.map(photo => {
+      setBook(book => {
+        const newPhotoArray = book.photos.map(photo => {
           if(photo.id === updatedPhoto.id){
             return updatedPhoto
           }else{
             return photo
           }
         })
-        return newPhotoArray
+        book.photos = newPhotoArray;
+        return book
       })
     }
 
     return(
         <Wrapper>
         <Logo>{book.name}</Logo>
-        <Button as={Link} to="/addphoto" state={books}>Add New Photo</Button>
+        <Button as={Link} to="/addphoto">Add New Photo</Button>
         <CardContainer>
-            {book.photos.map((photo, index) => {
+            {book.photos.map((photo) => {
                 return(
                 <PhotoList
+                key={photo.id}
                 photo ={photo}
                 onDeletePhoto = {onDeletePhoto}
                 editPhoto={editPhoto}
-                key={index}
-                id={photo.id}
-                name={photo.name}
-                image={photo.image}
                 />
             )
                 })}

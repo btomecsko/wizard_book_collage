@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useLocation } from 'react-router-dom';
+//import { useLocation } from 'react-router-dom';
 import styled from "styled-components";
 import Button from "../styles/Button"; 
 import Error from "../styles/Error";
@@ -8,7 +8,7 @@ import Input from "../styles/Input";
 import FormField from "../styles/FormField";
 import Label from "../styles/Label";
 
-const AddPhoto = () => {
+const AddPhoto = ({bookID}) => {
   const [name, setName] = useState("");
   const [image, setImage] = useState("");
   
@@ -16,9 +16,6 @@ const AddPhoto = () => {
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
-  //location hook to receive the book id from the state from the book card component
-  const location = useLocation()
-  const bookId = location.state
 
 
   //POST request to send new book data/hash to database through the backend
@@ -33,7 +30,7 @@ const AddPhoto = () => {
       body: JSON.stringify({
         name,
         image,
-        book_id: bookId,
+        book_id: bookID,
       }),
     }).then((r) => {
       setIsLoading(false);

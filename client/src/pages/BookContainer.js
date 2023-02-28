@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import BookCard from "../components/BookCard";
 
-const BookContainer = () => {
+const BookContainer = ({enterBookID}) => {
 
     const [books, setBooks] = useState([])
 
@@ -26,6 +26,7 @@ const BookContainer = () => {
                     <BookCard
                     key = {book.id}
                     book={book}
+                    enterBookID={enterBookID}
                     />
                     )
                     })}
