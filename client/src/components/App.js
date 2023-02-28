@@ -14,7 +14,6 @@ import AddPhoto from "./AddPhoto";
 const App = () => {
 
   const [wizard, setWizard] = useState(null);
-  const [bookID, setBookID] = useState(false)
 
   useEffect(() => {
     // auto-login
@@ -27,26 +26,15 @@ const App = () => {
 
   if (!wizard) return <Login onLogin={setWizard} />;
 
-  
-  const enterBookID = (id) => {
-    setBookID(id)
-  }
-
   return (
     <>
       <NavBar wizard={wizard} setWizard={setWizard} />
       <main>
         <Routes>
           <Route path="/new" element={<NewBook/>}/>
-          <Route path="/" element={<BookContainer 
-          enterBookID={enterBookID}
-          />}/>
-          <Route path="/photos" element={<PhotoContainer
-          bookID={bookID}
-          />}/>
-          <Route path="/addphoto" element={<AddPhoto
-          bookID={bookID}
-          />}/>
+          <Route path="/" element={<BookContainer/>}/>
+          <Route path="/photos" element={<PhotoContainer/>}/>
+          <Route path="/addphoto" element={<AddPhoto/>}/>
         </Routes>
       </main>
     </>

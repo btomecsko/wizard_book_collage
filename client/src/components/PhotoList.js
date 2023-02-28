@@ -13,7 +13,7 @@ import {
 import styled from "styled-components";
 import Button from "../styles/Button";
 
-const PhotoList = ({  editPhoto, onDeletePhoto, photo}) => {
+const PhotoList = ({ editPhoto, onDeletePhoto, photo}) => {
     const [visible, setVisible] = useState(false);
     const [newImage, setNewImage] = useState("");    
 
@@ -27,10 +27,10 @@ const PhotoList = ({  editPhoto, onDeletePhoto, photo}) => {
             method: "DELETE"
         })
         .then(() => onDeletePhoto(id))
-        //navigate(0);
     };
   
-  const updateName = () => {
+  const updateName = (e) => {
+    e.preventDefault();
     fetch(`/photos/${id}`, {
       method: "PATCH",
       headers: {
@@ -41,7 +41,7 @@ const PhotoList = ({  editPhoto, onDeletePhoto, photo}) => {
       })
     })
       .then(res => res.json())
-      .then(data => editPhoto(data))
+      .then(() => editPhoto(id))
        //navigate(0);
   };
 

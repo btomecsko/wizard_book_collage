@@ -1,5 +1,4 @@
-//import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import {
     CardWrapper,
@@ -8,21 +7,14 @@ import {
     CardTextBody,
     CardBodyWrapper,
     CardOpenWrapper,
-    CardOpen
+    CardOpen,
+    LinkText
   } from "../styles/Card";
-  import Button from "../styles/Button";
   import styled from "styled-components";
 
 
-const BookCard = ({book , enterBookID}) => {
+const BookCard = ({book}) => {
   const {id, name, description} = book;
-
-  const navigate = useNavigate();
-
-  const handleOpenBook = () => {
-    enterBookID(id)
-    navigate('/photos');
-  }
   
     return (
         <Separator>
@@ -37,7 +29,7 @@ const BookCard = ({book , enterBookID}) => {
         </CardBodyWrapper>
         <CardOpenWrapper>
           <CardOpen>
-            <Button onClick={handleOpenBook}>Open</Button>
+            <LinkText as={Link} to="/photos" state={id}>Open</LinkText>
           </CardOpen>
         </CardOpenWrapper>
       </CardWrapper>

@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from "react";
-//import { useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { Link } from "react-router-dom";
 
 import styled from "styled-components";
 import Button from "../styles/Button";
 import PhotoList from "./PhotoList";
 
-const PhotoContainer = ({bookID}) => {
-    const [book, setBook] = useState({photos: []})
-    
+const PhotoContainer = () => {
+    const [book, setBook] = useState([])
+    const location = useLocation()
+    const bookID = location.state
     
     useEffect (() => {
       fetch(`/books/${bookID}`)
@@ -19,10 +20,10 @@ const PhotoContainer = ({bookID}) => {
 
     const onDeletePhoto = (id) => {
       console.log(id)
-      setBook(book => {
-        const filteredPhotos = book.photos.filter(photo => photo.id !== id)
-        book.photos = filteredPhotos;
-        return book
+      setBook(bookPhoto => {
+        const filteredPhotos = bookPhoto.photos.filter(photo => photo.id !== id)
+        //book.photos = filteredPhotos;
+        return filteredPhotos
       })
     }
 
@@ -43,11 +44,12 @@ const PhotoContainer = ({bookID}) => {
     return(
         <Wrapper>
         <Logo>{book.name}</Logo>
-        <Button as={Link} to="/addphoto">Add New Photo</Button>
+        <Button as={Link} to="/addphoto" state={bookID}>Add New Photo</Button>
         <CardContainer>
-            {book.photos.map((photo) => {
+            {book.photos?.map((photo) => {
                 return(
                 <PhotoList
+                setBook={setBook}
                 key={photo.id}
                 photo ={photo}
                 onDeletePhoto = {onDeletePhoto}
