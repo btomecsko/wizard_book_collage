@@ -14,10 +14,9 @@ import styled from "styled-components";
 import Button from "../styles/Button";
 
 const PhotoList = ({ editPhoto, onDeletePhoto, photo}) => {
-    const [visible, setVisible] = useState(false);
-    const [newImage, setNewImage] = useState("");    
-
     const {id, name, image} = photo
+    const [visible, setVisible] = useState(false);
+    const [newImage, setNewImage] = useState(image);    
     //const navigate = useNavigate();
 
     console.log(image)

@@ -6,7 +6,7 @@ import { Routes, Route } from "react-router-dom";
 import BookContainer from "../pages/BookContainer";
 import Login from "../pages/Login"
 import NewBook from "../pages/NewBook";
-import PhotoContainer from "./PhotoContainer";
+//import PhotoContainer from "./PhotoContainer";
 import NavBar from "./NavBar";
 import AddPhoto from "./AddPhoto";
 
@@ -14,6 +14,7 @@ import AddPhoto from "./AddPhoto";
 const App = () => {
 
   const [wizard, setWizard] = useState(null);
+  const [books, setBooks] = useState([])
 
   useEffect(() => {
     // auto-login
@@ -24,16 +25,25 @@ const App = () => {
     });
   }, []);
 
-  if (!wizard) return <Login onLogin={setWizard} />;
+  
+
+  useEffect(() => {
+    fetch('/books')
+    .then(res => res.json())
+    .then(data => setBooks(data))
+}, [])
+  
+if (!wizard) return <Login onLogin={setWizard} />;
 
   return (
     <>
       <NavBar wizard={wizard} setWizard={setWizard} />
       <main>
         <Routes>
+          <Route path="/" element={<BookContainer
+          books={books}
+          />}/>
           <Route path="/new" element={<NewBook/>}/>
-          <Route path="/" element={<BookContainer/>}/>
-          <Route path="/photos" element={<PhotoContainer/>}/>
           <Route path="/addphoto" element={<AddPhoto/>}/>
         </Routes>
       </main>

@@ -1,9 +1,10 @@
 class BooksController < ApplicationController
+    skip_before_action :authorize, only: :index
 
     #GET request for all books
     def index
         books = Book.all
-        render json: books
+        render json: books, include: :photos
     end
     #GET request for a book based on id params
     def show
@@ -13,7 +14,7 @@ class BooksController < ApplicationController
     #POST request to create new book
     def create
         book = Book.create!(book_params)
-        render json: book, status: :accepted
+        render json: book, status: :created
     end
 
     private

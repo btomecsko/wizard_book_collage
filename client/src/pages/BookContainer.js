@@ -1,37 +1,98 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
+import PhotoList from "../components/PhotoList";
+
+import Button from "../styles/Button"
 import styled from "styled-components";
 import BookCard from "../components/BookCard";
 
-const BookContainer = () => {
-    const [books, setBooks] = useState([])
+const BookContainer = ({books}) => {
+  
+  const [showPhoto, setShowPhoto] = useState(true);
+  const [bookPhoto, setPhoto] = useState({photos: []})
+  const [bookID, setBookID] = useState(1)
 
-    useEffect (() => {
-        const loadBooks = async () => {
-            const res = await fetch('/books')
-            const data = await res.json()
-            setBooks(data)
+
+
+  useEffect (() => {
+    fetch(`/books/${bookID}`)
+    .then(res => res.json())
+    .then(photo => setPhoto(photo));
+  }, [bookID])
+
+  const onDeletePhoto = (id) => {
+    console.log(id)
+    setPhoto(oldPhoto => {
+      const filteredPhotos = oldPhoto.photos.filter(photo => photo.id !== id)
+      oldPhoto.photos = filteredPhotos;
+      return oldPhoto
+    })
+  }
+
+  const editPhoto = (updatedPhoto) => {
+    setPhoto(oldPhotoArray => {
+      const newPhotoArray = oldPhotoArray.photos.map(photo => {
+        if(photo.id === updatedPhoto.id){
+          return updatedPhoto
+        }else{
+          return photo
         }
-        loadBooks()
-    }, [])
+      })
+      oldPhotoArray.photos = newPhotoArray;
+      console.log(newPhotoArray)
+      return {...oldPhotoArray}
+    })
+  }
+ 
+  const enterBook = (id) => {
+    setBookID(id)
+  }
+  
 
-    return (
-        <Wrapper>
-            <Logo>Library</Logo>
-            <>
-            <CardContainer>
-                {books.map(book => {
-                    return(
-                    <BookCard
-                    key = {book.id}
-                    book={book}
-                    />
-                    )
-                    })}
-            </CardContainer>
-            </>
-        </Wrapper>
-    )
+  return (
+    <Wrapper>
+      <>
+      {showPhoto ? (
+        <>
+        <Logo>Library</Logo>
+        <CardContainer>
+          {books.map(book => {
+            return (
+              <BookCard
+                key={book.id}
+                book={book}
+                setShowPhoto = {setShowPhoto}
+                enterBook = {enterBook}
+              />
+            )
+          })}
+        </CardContainer>
+        </>
+         ) : (
+          <>
+            <Logo>{bookPhoto.name}</Logo>
+              <Button as={Link} to="/addphoto" state={bookID}>Add New Photo</Button>
+              <Button color="secondary" onClick={() => setShowPhoto(true)}>
+              Close
+              </Button>
+          <CardContainer>
+          {bookPhoto.photos?.map((photo) => {
+              return(
+              <PhotoList
+              key={photo.id}
+              photo ={photo}
+              onDeletePhoto = {onDeletePhoto}
+              editPhoto={editPhoto}
+              />
+          )
+              })}
+              </CardContainer>
+              </>
+        )}
+      </>
+    </Wrapper>
+  )
 }
 
 const Wrapper = styled.section`

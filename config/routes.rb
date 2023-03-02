@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   
-  resources :photos, only: [:index, :show, :create, :update, :destroy] 
+  resources :photos 
   resources :books, only: [:index, :show, :create]
   #resources :wizards, only: [:index, :update]
   

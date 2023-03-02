@@ -1,41 +1,47 @@
-import { Link } from "react-router-dom";
 
 import {
-    CardWrapper,
-    CardTextWrapper,
-    CardTextTitle,
-    CardTextBody,
-    CardBodyWrapper,
-    CardOpenWrapper,
-    CardOpen,
-    LinkText
-  } from "../styles/Card";
-  import styled from "styled-components";
+  CardWrapper,
+  CardTextWrapper,
+  CardTextTitle,
+  CardTextBody,
+  CardBodyWrapper,
+  CardOpenWrapper,
+  CardOpen,
+  LinkText
+} from "../styles/Card";
+//import Button from "../styles/Button";
+import styled from "styled-components";
+
+//import PhotoList from "./PhotoList";
 
 
-const BookCard = ({book}) => {
-  const {id, name, description} = book;
-  
-    return (
-        <Separator>
-        <CardWrapper>
+const BookCard = ({ setShowPhoto, enterBook, book }) => {
+  const { id, name, description } = book
+
+  const handleOpenBook = () => {
+    setShowPhoto(false);
+    enterBook(id)
+  }
+
+  return (
+    <Separator>
+      <CardWrapper>
         <CardTextWrapper>
           <CardTextTitle>{name}</CardTextTitle>
         </CardTextWrapper>
         <CardBodyWrapper>
-        <CardTextBody>
+          <CardTextBody>
             {description}
           </CardTextBody>
         </CardBodyWrapper>
         <CardOpenWrapper>
           <CardOpen>
-            <LinkText as={Link} to="/photos" state={id}>Open</LinkText>
+            <LinkText onClick={handleOpenBook} >Open</LinkText>
           </CardOpen>
         </CardOpenWrapper>
       </CardWrapper>
-      </Separator>
-
-    );
+    </Separator>
+  );
 }
 
 const Separator = styled.span`

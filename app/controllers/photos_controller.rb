@@ -7,7 +7,7 @@ class PhotosController < ApplicationController
 
     #GET /photos/:id
     def show
-        photo = @current_wizard.find_photo
+        photo = find_photo
         render json: photo
     end
 
