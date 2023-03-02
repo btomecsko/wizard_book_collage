@@ -16,10 +16,7 @@ import Button from "../styles/Button";
 const PhotoList = ({ editPhoto, onDeletePhoto, photo}) => {
     const {id, name, image} = photo
     const [visible, setVisible] = useState(false);
-    const [newImage, setNewImage] = useState(image);    
-    //const navigate = useNavigate();
-
-    console.log(image)
+    const [newImage, setNewImage] = useState(image);
 
     const handleDeletePhoto = () => {
         fetch(`/photos/${id}`, {
@@ -41,7 +38,6 @@ const PhotoList = ({ editPhoto, onDeletePhoto, photo}) => {
     })
       .then(res => res.json())
       .then(() => editPhoto(id))
-       //navigate(0);
   };
 
     return (

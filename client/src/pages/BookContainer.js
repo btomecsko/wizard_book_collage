@@ -7,48 +7,39 @@ import Button from "../styles/Button"
 import styled from "styled-components";
 import BookCard from "../components/BookCard";
 
-const BookContainer = ({books}) => {
+const BookContainer = ({books, enterBook, bookID}) => {
   
   const [showPhoto, setShowPhoto] = useState(true);
-  const [bookPhoto, setPhoto] = useState({photos: []})
-  const [bookID, setBookID] = useState(1)
-
-
+  const [bookPhoto, setBookPhoto] = useState({photos: []})
 
   useEffect (() => {
     fetch(`/books/${bookID}`)
     .then(res => res.json())
-    .then(photo => setPhoto(photo));
+    .then(photo => setBookPhoto(photo));
   }, [bookID])
 
   const onDeletePhoto = (id) => {
-    console.log(id)
-    setPhoto(oldPhoto => {
-      const filteredPhotos = oldPhoto.photos.filter(photo => photo.id !== id)
-      oldPhoto.photos = filteredPhotos;
-      return oldPhoto
+    setBookPhoto(oldBookPhoto => {
+      const filteredPhotos = oldBookPhoto.photos.filter(photo => photo.id !== id)
+      oldBookPhoto.photos = filteredPhotos;
+      return {...oldBookPhoto}
     })
   }
 
   const editPhoto = (updatedPhoto) => {
-    setPhoto(oldPhotoArray => {
-      const newPhotoArray = oldPhotoArray.photos.map(photo => {
+    setBookPhoto(oldBookPhoto => {
+      const updatedBookPhoto = oldBookPhoto.photos.map(photo => {
         if(photo.id === updatedPhoto.id){
           return updatedPhoto
         }else{
           return photo
         }
       })
-      oldPhotoArray.photos = newPhotoArray;
-      console.log(newPhotoArray)
-      return {...oldPhotoArray}
+      oldBookPhoto.photos = updatedBookPhoto;
+      return {...oldBookPhoto}
     })
   }
  
-  const enterBook = (id) => {
-    setBookID(id)
-  }
-  
 
   return (
     <Wrapper>

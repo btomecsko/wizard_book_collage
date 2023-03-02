@@ -1,4 +1,3 @@
-
 import {
   CardWrapper,
   CardTextWrapper,
@@ -9,11 +8,7 @@ import {
   CardOpen,
   LinkText
 } from "../styles/Card";
-//import Button from "../styles/Button";
 import styled from "styled-components";
-
-//import PhotoList from "./PhotoList";
-
 
 const BookCard = ({ setShowPhoto, enterBook, book }) => {
   const { id, name, description } = book
@@ -36,7 +31,7 @@ const BookCard = ({ setShowPhoto, enterBook, book }) => {
         </CardBodyWrapper>
         <CardOpenWrapper>
           <CardOpen>
-            <LinkText onClick={handleOpenBook} >Open</LinkText>
+            <LinkText onClick={handleOpenBook}>Aberto</LinkText>
           </CardOpen>
         </CardOpenWrapper>
       </CardWrapper>

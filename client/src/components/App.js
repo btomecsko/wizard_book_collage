@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Routes, Route } from "react-router-dom";
 
-//import 'bootstrap/dist/css/bootstrap.min.css';
-
 import BookContainer from "../pages/BookContainer";
 import Login from "../pages/Login"
 import NewBook from "../pages/NewBook";
@@ -10,11 +8,11 @@ import NewBook from "../pages/NewBook";
 import NavBar from "./NavBar";
 import AddPhoto from "./AddPhoto";
 
-
 const App = () => {
 
   const [wizard, setWizard] = useState(null);
   const [books, setBooks] = useState([])
+  const [bookID, setBookID] = useState(1)
 
   useEffect(() => {
     // auto-login
@@ -25,13 +23,15 @@ const App = () => {
     });
   }, []);
 
-  
-
   useEffect(() => {
     fetch('/books')
     .then(res => res.json())
     .then(data => setBooks(data))
 }, [])
+
+const enterBook = (id) => {
+  setBookID(id)
+}
   
 if (!wizard) return <Login onLogin={setWizard} />;
 
@@ -42,6 +42,8 @@ if (!wizard) return <Login onLogin={setWizard} />;
         <Routes>
           <Route path="/" element={<BookContainer
           books={books}
+          enterBook={enterBook}
+          bookID={bookID}
           />}/>
           <Route path="/new" element={<NewBook/>}/>
           <Route path="/addphoto" element={<AddPhoto/>}/>
