@@ -27,16 +27,16 @@ const BookContainer = ({books, enterBook, bookID}) => {
   }
 
   const editPhoto = (updatedPhoto) => {
-    setBookPhoto(oldBookPhoto => {
-      const updatedBookPhoto = oldBookPhoto.photos.map(photo => {
+    setBookPhoto(bookPhoto => {
+      const updatedBookPhoto = bookPhoto.photos.map(photo => {
         if(photo.id === updatedPhoto.id){
           return updatedPhoto
         }else{
           return photo
         }
       })
-      oldBookPhoto.photos = updatedBookPhoto;
-      return {...oldBookPhoto}
+      //bookPhoto.photos = updatedBookPhoto;
+      return {updatedBookPhoto}
     })
   }
  

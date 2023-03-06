@@ -34,7 +34,7 @@ const PhotoList = ({ editPhoto, onDeletePhoto, photo}) => {
       },
       body: JSON.stringify({
         image: newImage,
-      })
+    })
     })
       .then(res => res.json())
       .then(() => editPhoto(id))
