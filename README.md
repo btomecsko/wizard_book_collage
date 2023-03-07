@@ -14,3 +14,13 @@ This is a full-stack application that allows a user to login or sign up for acce
 ## Screenshots
 ### Login
 ![Login](ProjScreenshots/login.png)
+
+### Navigation
+![Navigation](ProjScreenshots/navbar.png)
+
+### Library
+![Library](ProjScreenshots/library.png)
+
+### Book
+![Book](ProjScreenshots/book.png)
+
