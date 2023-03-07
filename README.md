@@ -13,4 +13,4 @@ This is a full-stack application that allows a user to login or sign up for acce
 
 ## Screenshots
 ### Login
-!(ProjScreenshots/login.png)
+![Login](ProjScreenshots/login.png)
