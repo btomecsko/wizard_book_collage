@@ -27,6 +27,7 @@ const PhotoList = ({ editPhoto, onDeletePhoto, photo}) => {
   
   const updateName = (e) => {
     e.preventDefault();
+    console.log("update name")
     fetch(`/photos/${id}`, {
       method: "PATCH",
       headers: {
@@ -37,7 +38,7 @@ const PhotoList = ({ editPhoto, onDeletePhoto, photo}) => {
     })
     })
       .then(res => res.json())
-      .then(() => editPhoto(id))
+      .then((data) => editPhoto(data))
   };
 
     return (
