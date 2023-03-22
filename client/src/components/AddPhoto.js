@@ -35,12 +35,12 @@ const AddPhoto = () => {
         image,
         book_id: bookID,
       }),
-    }).then((r) => {
+    }).then((res) => {
       setIsLoading(false);
-      if (r.ok) {
+      if (res.ok) {
         navigate(-1);
       } else {
-        r.json().then((err) => setErrors(err.errors));
+        res.json().then((err) => setErrors(err.errors));
       }
     });
   }
@@ -74,7 +74,7 @@ const AddPhoto = () => {
             </Button>
           </FormField>
           <FormField>
-            {errors.map((err) => (
+            {errors?.map((err) => (
               <Error key={err}>{err}</Error>
             ))}
           </FormField>

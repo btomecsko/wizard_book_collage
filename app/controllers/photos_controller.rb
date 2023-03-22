@@ -20,15 +20,23 @@ class PhotosController < ApplicationController
     #PATCH /photos/:id
     def update
         photo = find_photo
-        photo.update(photo_params)
-        render json: photo, status: :accepted
+        if photo.wizard_id == @current_wizard.id 
+            photo.update(photo_params)
+            render json: photo, status: :accepted
+        else
+            render json: { errors: ["Not authorized"] }, status: :unauthorized
+        end
     end
 
     #DELETE /photos/:id
     def destroy
         photo = find_photo
+        if photo.wizard_id == @current_wizard.id
         photo.destroy
         head :no_content
+    else
+        render json: { errors: ["Not authorized"] }, status: :unauthorized
+        end
     end
 
     private

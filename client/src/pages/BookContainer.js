@@ -21,8 +21,8 @@ const BookContainer = ({books, enterBook, bookID}) => {
   const onDeletePhoto = (id) => {
     setBookPhoto(oldBookPhoto => {
       const filteredPhotos = oldBookPhoto.photos.filter(photo => photo.id !== id)
-      oldBookPhoto.photos = filteredPhotos;
-      return {...oldBookPhoto}
+      bookPhoto.photos = filteredPhotos;
+      return {...bookPhoto}
     })
   }
 
