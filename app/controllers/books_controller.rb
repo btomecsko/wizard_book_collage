@@ -1,5 +1,5 @@
 class BooksController < ApplicationController
-    skip_before_action :authorize, only: :index
+    skip_before_action :authorize, only: [:index, :search]
 
     #GET request for all books
     def index
@@ -15,6 +15,13 @@ class BooksController < ApplicationController
     def create
         book = Book.create!(book_params)
         render json: book, status: :created
+    end
+
+    #Search action to locate book based on title, does not need to be capitalized
+    def search
+        term = params[:term]
+        results = Book.all.where("name LIKE ?", "%#{term.downcase}%")
+        render json: results
     end
 
     private

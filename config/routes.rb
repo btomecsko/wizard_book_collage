@@ -3,6 +3,8 @@ Rails.application.routes.draw do
   resources :photos 
   resources :books, only: [:index, :show, :create]
   #resources :wizards, only: [:index, :update]
+
+  get "/search/:term", to: "books#search"
   
   post "/signup", to: "wizards#create"
   get "/me", to: "wizards#show"

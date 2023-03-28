@@ -11,6 +11,7 @@ import {
     CardTextBody
 } from "../styles/Card";
 import Error from "../styles/Error";
+import FormField from "../styles/FormField";
 import styled from "styled-components";
 import Button from "../styles/Button";
 
@@ -44,8 +45,15 @@ const PhotoList = ({ editPhoto, onDeletePhoto, photo }) => {
                 image: newImage,
             })
         })
-            .then(res => res.json())
-            .then((data) => editPhoto(data))
+        .then((res) => {
+            if (res.ok) {
+                res.json().then(data => editPhoto(data))
+            } else {
+                res.json().then((err) => setErrors(err.errors));
+            }
+        })    
+           // .then(res => res.json())
+          //  .then((data) => editPhoto(data))
     };
 
     return (
@@ -61,6 +69,11 @@ const PhotoList = ({ editPhoto, onDeletePhoto, photo }) => {
                     </CardLink>
                     <CardLink>
                         <Button onClick={handleDeletePhoto}>Delete</Button>
+                        <FormField>
+                                {errors?.map((err) => (
+                                    <Error key={err}>{err}</Error>
+                                ))}
+                            </FormField>
                     </CardLink>
                     {visible &&
                         <>
@@ -70,11 +83,11 @@ const PhotoList = ({ editPhoto, onDeletePhoto, photo }) => {
                                     Confirm
                                 </Button>
                             </CardTextBody>
-                            <CardTextTitle>
+                            <FormField>
                                 {errors?.map((err) => (
                                     <Error key={err}>{err}</Error>
                                 ))}
-                            </CardTextTitle>
+                            </FormField>
                         </>
                     }
                 </CardLinkWrapper>
