@@ -6,6 +6,10 @@ Rails.application.routes.draw do
 
   get "/search/:term", to: "books#search"
   
+  get "/wizards/get_names/:length", to: "wizards#get_names"
+
+  #grab the wizards name with 4 charachters or more
+  
   post "/signup", to: "wizards#create"
   get "/me", to: "wizards#show"
 

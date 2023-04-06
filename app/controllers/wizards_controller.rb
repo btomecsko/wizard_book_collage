@@ -1,6 +1,6 @@
 class WizardsController < ApplicationController
   #filter to skip the authorization clause to allow a wizard to be created
-  skip_before_action :authorize, only: :create
+  skip_before_action :authorize, only: [:create, :get_names]
 
   #GET /wizards/:id based on the current logged in wizard
   def show
@@ -12,6 +12,13 @@ class WizardsController < ApplicationController
     wizard = Wizard.create!(wizard_params)
     session[:wizard_id] = wizard.id
     render json: wizard, status: :created
+  end
+
+  def get_names
+    #byebug
+    length = params[:length]
+    result = Wizard.all.where("LENGTH(first) > ?", length.to_i)
+    render json: result
   end
   
 
